@@ -266,20 +266,6 @@ http_middleware = metrics.http_middleware
 
   For more detailed example see [example/HTTP/latency_v2.lua](./example/HTTP/latency_v2.lua).
 
-#### `http_middleware.observe(collector, route, ...)`
-  Utility method. Measures latency and invokes collector with labels from given route.
-  * `collector` Middleware collector object.
-  * `route` Route for label pairs (table with `path` and `method` fields)
-  * `...` Handler function and its arguments.
-
-  Method calls handler with given arguments (using `pcall(...)`) and measures its time of work.
-  Collector observes this time (latency) with labels `path`, `method` (both taken from `route`) and `status`.
-  If call fails with error, collector sets `status = 500` and method throws an error.
-  If call succeeds, collector sets `status = result.status` for handler return result (if field not provided, sets `status = 200`).
-  
-  Returns observation result. For `observation` description see `counter_obj:collect()` section.
-
-
 ## CONTRIBUTION
 
 Feel free to send Pull Requests. E.g. you can support new timeseriess aggregation / manipulation functions (but be sure to check if there are any Prometheus analogues to borrow API from).
